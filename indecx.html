@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0f7fa;
+            margin: 0;
+        }
+        .flashcard {
+            width: 300px;
+            height: 200px;
+            background-color: #ffffff;
+            border: 2px solid #00796b;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            text-align: center;
+            color: #00796b;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .flashcard:hover {
+            transform: scale(1.05);
+        }
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="flashcard" id="flashcard" onclick="flipCard()">
+    Clique para ver a resposta!
+</div>
+
+<script>
+    const flashcards = [
+        { question: "Qual é a capital da França?", answer: "Paris" },
+        { question: "Qual é a fórmula da água?", answer: "H2O" },
+        { question: "Quem escreveu 'Dom Casmurro'?", answer: "Machado de Assis" },
+        { question: "Qual é a linguagem de programação mais popular?", answer: "JavaScript" }
+    ];
+
+    let currentCard = 0;
+    let showingAnswer = false;
+
+    function flipCard() {
+        const flashcard = document.getElementById('flashcard');
+        
+        if (showingAnswer) {
+            flashcard.textContent = flashcards[currentCard].question;
+        } else {
+            flashcard.textContent = flashcards[currentCard].answer;
+        }
+
+        showingAnswer = !showingAnswer;
+    }
+
+    function nextCard() {
+        currentCard = (currentCard + 1) % flashcards.length;
+        const flashcard = document.getElementById('flashcard');
+        flashcard.textContent = flashcards[currentCard].question;
+        showingAnswer = false;
+    }
+
+    setInterval(nextCard, 5000); // Troca de flashcard a cada 5 segundos
+    document.getElementById('flashcard').textContent = flashcards[currentCard].question;
+</script>
+
+</body>
+</html>
